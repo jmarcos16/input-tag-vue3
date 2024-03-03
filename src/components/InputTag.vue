@@ -1,6 +1,8 @@
 <script>
+import { ref } from 'vue';
 export default {
   name: 'InputTag',
+  eimts: ['update:modelValue'],
   props: {
     modelvalue: {
       type: Array,
@@ -14,6 +16,9 @@ export default {
   },
   setup(props, { emit }) {
 
+    const tag = ref('');
+    const selectedTags = ref(props.modelvalue);
+
     /**
      * Add tag to the list
      * @param {KeyboardEvent} e
@@ -21,8 +26,14 @@ export default {
      */
     const addTag = (e) => {
       if (e.key === 'Enter') {
-        emit('input', [...props.value, e.target.value]);
-        e.target.value = '';
+        if (tag.value.trim() === '') return;
+        const newValue = [
+          ...selectedTags.value,
+          { id: selectedTags.value.length + 1, name: tag.value }
+        ];
+        selectedTags.value = newValue;
+        tag.value = '';
+        emit('update:modelValue', selectedTags.value);
       }
     };
 
@@ -32,13 +43,16 @@ export default {
      * @returns {void}
      */
     const removeTag = (index) => {
-      const newValue = [...props.value];
+      const newValue = [...selectedTags.value];
       newValue.splice(index, 1);
-      emit('input', newValue);
+      selectedTags.value = newValue;
+      emit('update:modelValue', selectedTags.value);
     };
     return {
       addTag,
-      removeTag
+      removeTag,
+      tag,
+      selectedTags
     };
   }
   
@@ -46,12 +60,17 @@ export default {
 </script>
 <template>
     <ul class="input_group">
-      <li v-for="(tag, index) in modelvalue" :key="index">
-        {{ tag.name }}
-        <button @click="removeTag(index)">x</button>
+      <li v-for="(tag, index) in selectedTags" :key="index" class="tag_button">
+        <span>{{ tag.name }}</span>
+        <button @mousedown.prevent.click="removeTag(index)">x</button>
       </li>
       <li>
-        <input type="text" @keyup="addTag" />
+        <input
+          type="text"
+          v-model="tag"
+          placeholder="Add a tag"
+          @keypress.prevent.enter="addTag"
+          />
       </li>
     </ul>
 </template>
@@ -59,15 +78,46 @@ export default {
 .input_group {
   display: flex;
   flex-wrap: wrap;
-  padding: 0;
-  margin: 0;
+  align-items: center;
   list-style: none;
+  border: 1px solid #bdbdbe;
+  padding: 0 1rem;
+  border-radius: 0.3rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: all 0.15s ease-in-out; 
 }
-.personal-button {
-  background-color: #000;
-  color: #fff;
-  padding: 10px 20px;
+.tag_button {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0.5rem 0.5rem 0;
+  padding: 0 10px;
+  background-color: #f3f4f6;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  color: #4b5563;
+  border: 1px solid #e4e4e7;
+}
+.tag_button span {
+  line-height: 0;
+}
+
+.tag_button button {
+  background-color: #f3f4f6;
   border: none;
-  border-radius: 5px;
+  cursor: pointer;
+  color: #4b5563;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  transition: all 0.15s ease-in-out;
+}   
+
+.input_group input {
+  border: none;
+  outline: none;
+  font-size: medium;
+  padding: 0.8rem 0.2rem;
+  font-size: 1rem;
+  transition: all 0.15s ease-in-out;
 }
 </style>
