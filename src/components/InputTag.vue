@@ -69,7 +69,8 @@ export default {
           type="text"
           v-model="tag"
           placeholder="Add a tag"
-          @keypress.prevent.enter="addTag"
+          @keypress.enter="addTag"
+          @keydown.prevent.tab="addTag"
           />
       </li>
     </ul>
