@@ -14,10 +14,20 @@ export default {
       ]
     }
   },
+  directives: {
+    focus: {
+      updated(el, binding) {
+        if (binding.value) {
+          el.focus();
+        }
+      }
+    },
+  },
   setup(props, { emit }) {
 
     const tag = ref('');
     const selectedTags = ref(props.modelvalue);
+    const focused = ref(false);
 
     /**
      * Watch for changes in the selected tags
@@ -61,14 +71,18 @@ export default {
       addTag,
       removeTag,
       tag,
-      selectedTags
+      selectedTags,
+      focused
     };
   }
   
 }
 </script>
 <template>
-    <ul class="input_group">
+    <ul
+      :class="{ focused: focused }"
+      @mousedown.prevent.click="focused = true"
+      class="input_group">
       <li v-for="(tag, index) in selectedTags" :key="index" class="tag_button">
         <span>{{ tag.name }}</span>
         <button @mousedown.prevent.click="removeTag(index)">x</button>
@@ -77,7 +91,10 @@ export default {
         <input
           type="text"
           v-model="tag"
+          v-focus="focused"
           placeholder="Add a tag"
+          @focus="focused = true"
+          @blur="focused = false"
           @keypress.enter="addTag"
           @keydown.prevent.tab="addTag"
           />
@@ -91,15 +108,15 @@ export default {
   align-items: center;
   list-style: none;
   border: 1px solid #bdbdbe;
-  padding: 0 1rem;
+  padding: 0 0.8rem;
   border-radius: 0.3rem;
+  gap: 0.3rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   transition: all 0.15s ease-in-out; 
 }
 .tag_button {
   display: flex;
   align-items: center;
-  margin: 0.5rem 0.5rem 0.5rem 0;
   padding: 0 10px;
   background-color: #f3f4f6;
   border-radius: 1rem;
@@ -130,4 +147,11 @@ export default {
   font-size: 1rem;
   transition: all 0.15s ease-in-out;
 }
+
+.focused {
+  border-color: #5468ff;
+  border-width: 1px;
+  box-shadow: 0 0 0 2px #5468ff;
+}
+
 </style>
