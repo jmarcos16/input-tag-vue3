@@ -108,7 +108,7 @@ export default {
   align-items: center;
   list-style: none;
   border: 1px solid #bdbdbe;
-  padding: 0 0.8rem;
+  padding: 0.9rem 0.8rem;
   border-radius: 0.3rem;
   gap: 0.3rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -117,11 +117,12 @@ export default {
 .tag_button {
   display: flex;
   align-items: center;
-  padding: 0 10px;
+  padding: 2px 10px;
   background-color: #f3f4f6;
   border-radius: 1rem;
   font-size: 0.9rem;
   color: #4b5563;
+  gap: 0.3rem;
   border: 1px solid #e4e4e7;
 }
 .tag_button span {
@@ -134,7 +135,6 @@ export default {
   cursor: pointer;
   color: #4b5563;
   font-size: 0.9rem;
-  padding: 0.5rem;
   border-radius: 0.3rem;
   transition: all 0.15s ease-in-out;
 }   
@@ -143,7 +143,7 @@ export default {
   border: none;
   outline: none;
   font-size: medium;
-  padding: 0.8rem 0.2rem;
+  padding: 0 0.2rem;
   font-size: 1rem;
   transition: all 0.15s ease-in-out;
 }
