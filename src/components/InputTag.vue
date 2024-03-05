@@ -1,8 +1,8 @@
 <script>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 export default {
   name: 'InputTag',
-  eimts: ['update:modelValue'],
+  emits: ['update:modelValue'],
   props: {
     modelvalue: {
       type: Array,
@@ -20,12 +20,21 @@ export default {
     const selectedTags = ref(props.modelvalue);
 
     /**
+     * Watch for changes in the selected tags
+     * @param {Array} selectedTags
+     * @returns {void}
+     */
+    watch(selectedTags, (newValue) => {
+      emit('update:modelValue', newValue);
+    });
+
+    /**
      * Add tag to the list
      * @param {KeyboardEvent} e
      * @returns {void}
      */
     const addTag = (e) => {
-      if (e.key === 'Enter') {
+      if (e.key === 'Enter' || e.key === 'Tab') {
         if (tag.value.trim() === '') return;
         const newValue = [
           ...selectedTags.value,
