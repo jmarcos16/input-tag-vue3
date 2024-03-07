@@ -7,7 +7,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/jmarcos16/input-tag-vue3.git"},
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A simple input tag component for Vue 3",
   "main": "dist/input-tag-vue3.umd.js",
   "module": "dist/input-tag-vue3.js",
@@ -18,8 +18,7 @@
     }
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "keywords": [
     "vue",

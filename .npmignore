@@ -1,0 +1,9 @@
+# Arquivos e diretórios a serem ignorados
+src/
+test/
+docs/
+node_modules/
+src/App.vue
+
+# Manter o diretório dist
+!dist/

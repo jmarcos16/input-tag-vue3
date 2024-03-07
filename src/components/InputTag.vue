@@ -8,9 +8,9 @@ export default {
       type: Array,
       required: false,
       default: () => [
-        { id: 1, name: 'HTML' },
-        { id: 2, name: 'CSS' },
-        { id: 3, name: 'JavaScript' }
+        // { id: 1, name: 'HTML' },
+        // { id: 2, name: 'CSS' },
+        // { id: 3, name: 'JavaScript' }
       ]
     }
   },
@@ -108,7 +108,7 @@ export default {
   align-items: center;
   list-style: none;
   border: 1px solid #bdbdbe;
-  padding: 0.9rem 0.8rem;
+  padding: .50rem 0.8rem;
   border-radius: 0.3rem;
   gap: 0.3rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -117,16 +117,18 @@ export default {
 .tag_button {
   display: flex;
   align-items: center;
-  padding: 2px 10px;
+  padding: 4px 10px;
   background-color: #f3f4f6;
   border-radius: 1rem;
   font-size: 0.9rem;
   color: #4b5563;
-  gap: 0.3rem;
+  gap: 0.5rem;
   border: 1px solid #e4e4e7;
 }
 .tag_button span {
   line-height: 0;
+  font-size: .75rem;
+  font-weight: 600;
 }
 
 .tag_button button {
@@ -143,15 +145,15 @@ export default {
   border: none;
   outline: none;
   font-size: medium;
-  padding: 0 0.2rem;
+  padding: 4px 0.2rem;
   font-size: 1rem;
   transition: all 0.15s ease-in-out;
 }
 
 .focused {
-  border-color: #5468ff;
-  border-width: 1px;
-  box-shadow: 0 0 0 2px #5468ff;
+  border-color: #4F46E5;
+  border: 1px solid #ffffff00;
+  box-shadow: 0 0 0 2px #4F46E5;
 }
 
 </style>
